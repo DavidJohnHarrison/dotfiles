@@ -3,6 +3,6 @@ set -m
 (
 	while true
 	do
-	    vim ~/.scratchpad_notes
+	    nvim ~/.scratchpad_notes
 	done
 )

@@ -35,7 +35,7 @@ cmp.setup({
 local language_servers = {
     'pyright',
     'lua_ls',
-    'clangd',
+--    'clangd',
     'html',
     'cssls',
     'tsserver',

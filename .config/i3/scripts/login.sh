@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Key Maps
-setxkbmap -option "ctrl:nocaps"
+setxkbmap -option "caps:escape"
 
 
 # Initial workspace configuration
