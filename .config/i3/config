@@ -10,6 +10,10 @@ set $term urxvt
 
 exec picom -b
 exec_always --no-startup-id xset dpms 0 0 300
+
+# Appearance
+default_border pixel
+hide_edge_borders smart
 # --------------------------------------------------------------------------------------------------
 
 
@@ -233,6 +237,15 @@ set $ws_group_12 F12
 
 #exec_always i3-msg workspace "${ws_group_1}_${ws_0}"
 #exec_always i3-msg workspace F1_\`
+# --------------------------------------------------------------------------------------------------
+
+
+# ---- Working Sets --------------------------------------------------------------------------------
+set $switch_working_set_menu_script ~/.config/i3/scripts/switch_working_set_menu.sh
+bindsym $mod+m exec $switch_working_set_menu_script
+
+set $move_to_working_set_menu_script ~/.config/i3/scripts/move_to_working_set_menu.sh
+bindsym $mod+Shift+m exec $move_to_working_set_menu_script
 # --------------------------------------------------------------------------------------------------
 
 
