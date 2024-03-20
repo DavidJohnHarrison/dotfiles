@@ -22,3 +22,5 @@ vim.opt.wrap = false
 vim.opt.termguicolors = true
 vim.opt.colorcolumn = "100"
 
+
+vim.opt.cursorline = true

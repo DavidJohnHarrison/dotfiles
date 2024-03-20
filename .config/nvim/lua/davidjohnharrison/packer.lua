@@ -1,9 +1,36 @@
+--vim.g.loaded_netrw = 1
+--vim.g.loaded_netrwPlugin = 1
+vim.opt.termguicolors = true
+
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
 
 
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
+
+    --use {
+    --    "nvim-tree/nvim-tree.lua",
+    --    requires = { "nvim-tree/nvim-web-devicons" }
+    --}
+    use {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+            "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+            {
+                's1n7ax/nvim-window-picker',
+                version = '2.*',
+            },
+            rocks = {"magick"},
+        }
+    }
+    use({
+        "stevearc/oil.nvim",
+    })
 
     use({'shaunsingh/nord.nvim', as = 'nord'})
     vim.cmd[[colorscheme nord]]
