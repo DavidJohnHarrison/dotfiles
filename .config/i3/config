@@ -1,4 +1,6 @@
 # ==== GENERAL =====================================================================================
+exec compton
+
 # ---- Modifier Keys -------------------------------------------------------------------------------
 set $mod Mod1
 
@@ -7,6 +9,7 @@ floating_modifier $mod
 
 #set $term i3-sensible-terminal
 set $term urxvt
+#set $term alacritty
 
 exec picom -b
 exec_always --no-startup-id xset dpms 0 0 300
@@ -207,7 +210,7 @@ bindsym $mod+r mode "resize"
 
 # ==== WORKSPACE MANAGEMENT ========================================================================
 # ---- Workspace Names -----------------------------------------------------------------------------
-set $ws_util 0_Util
+set $ws_util 0:Util
 
 set $ws_0  "\`"
 set $ws_1  "1"
@@ -236,91 +239,87 @@ set $ws_group_10 F10
 set $ws_group_11 F11
 set $ws_group_12 F12
 
+exec --no-startup-id ~/.config/i3/scripts/helios/start_helios.sh
+set $helios http://127.0.0.1:7777
+
 #exec_always i3-msg workspace "${ws_group_1}_${ws_0}"
 #exec_always i3-msg workspace F1_\`
 # --------------------------------------------------------------------------------------------------
 
 
 # ---- Working Sets --------------------------------------------------------------------------------
-set $switch_working_set_menu_script ~/.config/i3/scripts/switch_working_set_menu.sh
-bindsym $mod+m exec $switch_working_set_menu_script
-
-set $move_to_working_set_menu_script ~/.config/i3/scripts/move_to_working_set_menu.sh
-bindsym $mod+Shift+m exec $move_to_working_set_menu_script
+bindsym $mod+m exec curl $helios/working_set/
+bindsym $mod+Shift+m exec curl -X POST $helios/working_set/
 # --------------------------------------------------------------------------------------------------
 
 
 # ---- Switch Workspace Group ----------------------------------------------------------------------
-set $switch_workspace_group_script ~/.config/i3/scripts/switch_workspace_group.sh
-bindsym $mod+F1  exec $switch_workspace_group_script $ws_group_1
-bindsym $mod+F2  exec $switch_workspace_group_script $ws_group_2
-bindsym $mod+F3  exec $switch_workspace_group_script $ws_group_3
-bindsym $mod+F4  exec $switch_workspace_group_script $ws_group_4
-bindsym $mod+F5  exec $switch_workspace_group_script $ws_group_5
-bindsym $mod+F6  exec $switch_workspace_group_script $ws_group_6
-bindsym $mod+F7  exec $switch_workspace_group_script $ws_group_7
-bindsym $mod+F8  exec $switch_workspace_group_script $ws_group_8
-bindsym $mod+F9  exec $switch_workspace_group_script $ws_group_9
-bindsym $mod+F10 exec $switch_workspace_group_script $ws_group_10
-bindsym $mod+F11 exec $switch_workspace_group_script $ws_group_11
-bindsym $mod+F12 exec $switch_workspace_group_script $ws_group_12
+bindsym $mod+F1  exec curl $helios/group/0
+bindsym $mod+F2  exec curl $helios/group/1
+bindsym $mod+F3  exec curl $helios/group/2
+bindsym $mod+F4  exec curl $helios/group/3
+bindsym $mod+F5  exec curl $helios/group/4
+bindsym $mod+F6  exec curl $helios/group/5
+bindsym $mod+F7  exec curl $helios/group/6
+bindsym $mod+F8  exec curl $helios/group/7
+bindsym $mod+F9  exec curl $helios/group/8
+bindsym $mod+F10 exec curl $helios/group/9
+bindsym $mod+F11 exec curl $helios/group/10
+bindsym $mod+F12 exec curl $helios/group/11
 # --------------------------------------------------------------------------------------------------
 
 
 # ---- Switch Workspace ----------------------------------------------------------------------------
 bindsym $mod+Escape workspace $ws_util
 
-set $switch_workspace_script ~/.config/i3/scripts/switch_workspace.sh
-bindsym $mod+grave exec $switch_workspace_script $ws_0
-bindsym $mod+1     exec $switch_workspace_script $ws_1
-bindsym $mod+2     exec $switch_workspace_script $ws_2
-bindsym $mod+3     exec $switch_workspace_script $ws_3
-bindsym $mod+4     exec $switch_workspace_script $ws_4
-bindsym $mod+5     exec $switch_workspace_script $ws_5
-bindsym $mod+6     exec $switch_workspace_script $ws_6
-bindsym $mod+7     exec $switch_workspace_script $ws_7
-bindsym $mod+8     exec $switch_workspace_script $ws_8
-bindsym $mod+9     exec $switch_workspace_script $ws_9
-bindsym $mod+0     exec $switch_workspace_script $ws_10
-bindsym $mod+minus exec $switch_workspace_script $ws_11
-bindsym $mod+equal exec $switch_workspace_script $ws_12
+bindsym $mod+grave exec curl $helios/workspace/0
+bindsym $mod+1     exec curl $helios/workspace/1
+bindsym $mod+2     exec curl $helios/workspace/2
+bindsym $mod+3     exec curl $helios/workspace/3
+bindsym $mod+4     exec curl $helios/workspace/4
+bindsym $mod+5     exec curl $helios/workspace/5
+bindsym $mod+6     exec curl $helios/workspace/6
+bindsym $mod+7     exec curl $helios/workspace/7
+bindsym $mod+8     exec curl $helios/workspace/8
+bindsym $mod+9     exec curl $helios/workspace/9
+bindsym $mod+0     exec curl $helios/workspace/10
+bindsym $mod+minus exec curl $helios/workspace/11
+bindsym $mod+equal exec curl $helios/workspace/12
 # --------------------------------------------------------------------------------------------------
 
 
 # ---- Move Focused Container To Workspace Group ---------------------------------------------------
-set $move_to_workspace_group_script ~/.config/i3/scripts/move_to_workspace_group.sh
-bindsym $mod+Shift+F1  exec $move_to_workspace_group_script $ws_group_1
-bindsym $mod+Shift+F2  exec $move_to_workspace_group_script $ws_group_2
-bindsym $mod+Shift+F3  exec $move_to_workspace_group_script $ws_group_3
-bindsym $mod+Shift+F4  exec $move_to_workspace_group_script $ws_group_4
-bindsym $mod+Shift+F5  exec $move_to_workspace_group_script $ws_group_5
-bindsym $mod+Shift+F6  exec $move_to_workspace_group_script $ws_group_6
-bindsym $mod+Shift+F7  exec $move_to_workspace_group_script $ws_group_7
-bindsym $mod+Shift+F8  exec $move_to_workspace_group_script $ws_group_8
-bindsym $mod+Shift+F9  exec $move_to_workspace_group_script $ws_group_9
-bindsym $mod+Shift+F10 exec $move_to_workspace_group_script $ws_group_10
-bindsym $mod+Shift+F11 exec $move_to_workspace_group_script $ws_group_11
-bindsym $mod+Shift+F12 exec $move_to_workspace_group_script $ws_group_12
+bindsym $mod+Shift+F1  exec curl -X POST $helios/group/0
+bindsym $mod+Shift+F2  exec curl -X POST $helios/group/1
+bindsym $mod+Shift+F3  exec curl -X POST $helios/group/2
+bindsym $mod+Shift+F4  exec curl -X POST $helios/group/3
+bindsym $mod+Shift+F5  exec curl -X POST $helios/group/4
+bindsym $mod+Shift+F6  exec curl -X POST $helios/group/5
+bindsym $mod+Shift+F7  exec curl -X POST $helios/group/6
+bindsym $mod+Shift+F8  exec curl -X POST $helios/group/7
+bindsym $mod+Shift+F9  exec curl -X POST $helios/group/8
+bindsym $mod+Shift+F10 exec curl -X POST $helios/group/9
+bindsym $mod+Shift+F11 exec curl -X POST $helios/group/10
+bindsym $mod+Shift+F12 exec curl -X POST $helios/group/11
 # --------------------------------------------------------------------------------------------------
 
 
 # ---- Move Focused Container To Workspace ---------------------------------------------------------
 bindsym $mod+Shift+Escape move container to workspace $ws_util
 
-set $move_to_workspace_script ~/.config/i3/scripts/move_to_workspace.sh
-bindsym $mod+Shift+grave exec $move_to_workspace_script $ws_0
-bindsym $mod+Shift+1     exec $move_to_workspace_script $ws_1
-bindsym $mod+Shift+2     exec $move_to_workspace_script $ws_2
-bindsym $mod+Shift+3     exec $move_to_workspace_script $ws_3
-bindsym $mod+Shift+4     exec $move_to_workspace_script $ws_4
-bindsym $mod+Shift+5     exec $move_to_workspace_script $ws_5
-bindsym $mod+Shift+6     exec $move_to_workspace_script $ws_6
-bindsym $mod+Shift+7     exec $move_to_workspace_script $ws_7
-bindsym $mod+Shift+8     exec $move_to_workspace_script $ws_8
-bindsym $mod+Shift+9     exec $move_to_workspace_script $ws_9
-bindsym $mod+Shift+0     exec $move_to_workspace_script $ws_10
-bindsym $mod+Shift+minus exec $move_to_workspace_script $ws_11
-bindsym $mod+Shift+equal exec $move_to_workspace_script $ws_12
+bindsym $mod+Shift+grave exec curl -X POST $helios/workspace/0
+bindsym $mod+Shift+1     exec curl -X POST $helios/workspace/1
+bindsym $mod+Shift+2     exec curl -X POST $helios/workspace/2
+bindsym $mod+Shift+3     exec curl -X POST $helios/workspace/3
+bindsym $mod+Shift+4     exec curl -X POST $helios/workspace/4
+bindsym $mod+Shift+5     exec curl -X POST $helios/workspace/5
+bindsym $mod+Shift+6     exec curl -X POST $helios/workspace/6
+bindsym $mod+Shift+7     exec curl -X POST $helios/workspace/7
+bindsym $mod+Shift+8     exec curl -X POST $helios/workspace/8
+bindsym $mod+Shift+9     exec curl -X POST $helios/workspace/9
+bindsym $mod+Shift+0     exec curl -X POST $helios/workspace/10
+bindsym $mod+Shift+minus exec curl -X POST $helios/workspace/11
+bindsym $mod+Shift+equal exec curl -X POST $helios/workspace/12
 # --------------------------------------------------------------------------------------------------
 # ==================================================================================================
 
@@ -335,7 +334,8 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+    status_command i3status
+    strip_workspace_numbers yes
 }
 
 
