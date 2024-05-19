@@ -110,8 +110,8 @@ alias ls='ls --color'
 
 # ==== DOTFILE MANAGEMENT ==========================================================================
 # Load local configuration
-source '.dotfiles/config'
-[[ -f '.dotfiles/config_local' ]] && source '.dotfiles/config_local'
+source "${HOME}/.dotfiles/config"
+[[ -f "${HOME}/.dotfiles/config_local" ]] && source "${HOME}/.dotfiles/config_local"
 
 # Set up dotfiles command (alias)
 alias dotfiles='git --git-dir=$DOTFILES_GIT --work-tree=$HOME'
@@ -123,5 +123,5 @@ alias install_dotfiles='$HOME/.dotfiles/install.sh'
 ZDOTDIR="$HOME/.config/zsh"
 fpaths+=${ZDOTDIR:-~}/.zsh_functions
 
-[[ -f '.config/zsh/zshrc.local' ]] && source '.config/zsh/zshrc.local'
+[[ -f "${HOME}/.config/zsh/zshrc.local" ]] && source "${HOME}/.config/zsh/zshrc.local"
 # ==================================================================================================
