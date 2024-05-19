@@ -6,5 +6,4 @@ oil.setup({
     },
 })
 
---vim.keymap.set('n', '<leader>R', oil.toggle_float)
-vim.keymap.set('n', '<leader>|', oil.toggle_float)
+vim.keymap.set('n', '<leader>\\', oil.toggle_float)

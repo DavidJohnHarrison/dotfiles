@@ -287,6 +287,5 @@ require("neo-tree").setup({
     }
 })
 
-vim.cmd([[nnoremap <leader>\ :Neotree toggle<cr>]])
---vim.cmd([[nnoremap <leader>r :Neotree toggle<cr>]])
+vim.keymap.set('n', '<leader>|', ':Neotree toggle<cr>')
 
