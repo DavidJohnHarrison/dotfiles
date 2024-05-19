@@ -239,11 +239,7 @@ set $ws_group_10 F10
 set $ws_group_11 F11
 set $ws_group_12 F12
 
-exec --no-startup-id ~/.config/i3/scripts/helios/start_helios.sh
 set $helios http://127.0.0.1:7777
-
-#exec_always i3-msg workspace "${ws_group_1}_${ws_0}"
-#exec_always i3-msg workspace F1_\`
 # --------------------------------------------------------------------------------------------------
 
 
@@ -343,3 +339,4 @@ focus_follows_mouse no
 
 # Execute login scripts
 exec ~/.config/i3/scripts/login.sh
+

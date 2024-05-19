@@ -47,6 +47,11 @@ state = {
     "workspace": workspace_names[0],
     "is_utility": False,
 }
+
+
+proc = subprocess.Popen(f"notify-send 'Helios is starting up'",
+                        stdout=subprocess.PIPE,
+                        shell=True)
 # --------------------------------------------------------------------------------------------------
 
 
@@ -209,7 +214,10 @@ def get_active_working_sets() -> list[dict]:
 
 def i3(cmd: str):
     proc = subprocess.Popen(f"i3-msg {cmd}", stdout=subprocess.PIPE, shell=True)
-    out, _ = proc.communicate()
+    out, err = proc.communicate()
+    if err is not None:
+        print("ERROR")
+        print(err)
     return out
 # ==================================================================================================
 

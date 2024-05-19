@@ -5,8 +5,5 @@ setxkbmap -option "caps:escape"
 
 
 # Initial workspace configuration
-echo "F1" > ~/.config/i3/scripts/.current_workspace_group
-echo '`' > ~/.config/i3/scripts/.current_workspace
-echo '' > ~/.config/i3/scripts/.current_working_set
-i3-msg workspace F1_\`
-#./switch_workspace.sh 1
+i3-msg workspace 1:F1_\`
+~/.config/i3/scripts/helios/start_helios.sh
