@@ -129,11 +129,6 @@ _G.packer_plugins = {
     path = "/home/david/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
   },
-  ["neo-tree.nvim"] = {
-    loaded = true,
-    path = "/home/david/.local/share/nvim/site/pack/packer/start/neo-tree.nvim",
-    url = "https://github.com/nvim-neo-tree/neo-tree.nvim"
-  },
   nord = {
     loaded = true,
     path = "/home/david/.local/share/nvim/site/pack/packer/start/nord",
@@ -163,11 +158,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/david/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/nvim-tree/nvim-web-devicons"
-  },
-  ["nvim-window-picker"] = {
-    loaded = true,
-    path = "/home/david/.local/share/nvim/site/pack/packer/start/nvim-window-picker",
-    url = "https://github.com/s1n7ax/nvim-window-picker"
   },
   ["oil.nvim"] = {
     loaded = true,
