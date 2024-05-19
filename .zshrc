@@ -1,7 +1,35 @@
-# ==== PROMPT ======================================================================================
-autoload -Uz promptinit
-promptinit
-prompt adam2
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+
+# ==== ZINIT =======================================================================================
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+
+# Download Zinit if not present
+if [ ! -d "$ZINIT_HOME" ]; then
+    mkdir -p "$(dirname $ZINIT_HOME)"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+
+source "${ZINIT_HOME}/zinit.zsh"
+# ==================================================================================================
+
+
+# ==== HISTORY =====================================================================================
+HISTFILE=~/.zsh_history
+HISTSIZE=5000
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
 # ==================================================================================================
 
 
@@ -32,55 +60,57 @@ preexec() { echo -ne '\e[1 q' ;} # Use block cursor on each new prompt
 # ==================================================================================================
 
 
-# ==== HISTORY =====================================================================================
-setopt histignorealldups sharehistory
+# ==== PROMPT ======================================================================================
+zinit ice depth-1; zinit light romkatv/powerlevel10k
 
-bindkey '^R' history-incremental-search-backward
-
-HISTSIZE=5000
-SAVEHIST=5000
-HISTFILE=~/.zsh_history
-# ==================================================================================================
-
-
-# ==== AUTOCOMPLETE ================================================================================
-# ---- Enable Autocomplete -------------------------------------------------------------------------
-zstyle ':completion:*' menu select
-zstyle ':completion:*' list-colors ''
-zmodload zsh/complist
-_comp_options+=(globdots)
-# --------------------------------------------------------------------------------------------------
-
-
-# ---- Enable Vim-Style Selection Menu Navigation --------------------------------------------------
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -M menuselect '^[' undo
-# --------------------------------------------------------------------------------------------------
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # ==================================================================================================
 
 
 # ==== SYNTAX HIGHLIGHTING =========================================================================
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-#source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+zinit light zsh-users/zsh-syntax-highlighting
 # ==================================================================================================
 
 
-alias vim=nvim
+# Requires fzf 0.48 or later
+eval "$(fzf --zsh)"
 
+
+# ==== AUTOCOMPLETIONS =============================================================================
+zinit light zsh-users/zsh-completions
+autoload -U compinit && compinit
+zinit cdreplay -q
+
+zinit light zsh-users/zsh-autosuggestions
+bindkey '^f' autosuggest-accept
+
+zinit light Aloxaf/fzf-tab
+
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:*:*' fzf-preview 'ls --color $realpath'
+# ==================================================================================================
+
+
+# ==== NEOVIM ======================================================================================
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+# ==================================================================================================
 
+
+# ==== ALIASES =====================================================================================
+alias vim='nvim'
+alias ls='ls --color'
+# ==================================================================================================
 
 
 # ==== DOTFILE MANAGEMENT ==========================================================================
-# Load default configuration
-[[ -f '.dotfiles/config' ]] && source '.dotfiles/config'
-
 # Load local configuration
+source '.dotfiles/config'
 [[ -f '.dotfiles/config_local' ]] && source '.dotfiles/config_local'
 
 # Set up dotfiles command (alias)
@@ -88,3 +118,10 @@ alias dotfiles='git --git-dir=$DOTFILES_GIT --work-tree=$HOME'
 alias install_dotfiles='$HOME/.dotfiles/install.sh'
 # ==================================================================================================
 
+
+# ==== ADDITIONAL CONFIG ===========================================================================
+ZDOTDIR="$HOME/.config/zsh"
+fpaths+=${ZDOTDIR:-~}/.zsh_functions
+
+[[ -f '.config/zsh/zshrc.local' ]] && source '.config/zsh/zshrc.local'
+# ==================================================================================================
