@@ -9,6 +9,7 @@ import uvicorn
 
 
 DEFAULTS_DIRECTORY = Path(__file__).parent / Path("defaults")
+UTILITY_WORKSPACE = "0:Utility"
 
 
 # ==== SERVER ======================================================================================
@@ -44,6 +45,7 @@ state = {
     "working_set": "general",
     "group": group_names[0],
     "workspace": workspace_names[0],
+    "is_utility": False,
 }
 # --------------------------------------------------------------------------------------------------
 
@@ -62,6 +64,7 @@ def index():
 @app.get("/workspace/{workspace_id}")
 async def switch_workspace(workspace_id: int):
     state["workspace"] = workspace_names[workspace_id]
+    state["is_utility"] = False
     workspace_name_global = get_workspace_name_by_state(state)
     i3(f"workspace \"{workspace_name_global}\"")
 
@@ -78,6 +81,7 @@ async def move_to_workspace(workspace_id: int):
 @app.get("/group/{group_id}")
 async def switch_group(group_id: int):
     state["group"] = group_names[group_id]
+    state["is_utility"] = False
     workspace_name_global = get_workspace_name_by_state(state)
     i3(f"workspace \"{workspace_name_global}\"")
 
@@ -101,6 +105,7 @@ async def switch_working_set(working_set_display_name: str):
         }
     print(working_sets)
     state["working_set"] = working_set_key
+    state["is_utility"] = False
     workspace_name_global = get_workspace_name_by_state(state)
     i3(f"workspace \"{workspace_name_global}\"")
 
@@ -141,6 +146,21 @@ async def move_to_working_set_with_menu():
     working_set = out.decode().strip()
     if len(working_set) != 0:
         await move_to_working_set(working_set)
+
+
+@app.get("/utility/")
+async def switch_to_util():
+    if state["is_utility"]:
+        state["is_utility"] = False
+        await switch_workspace(workspace_ids[state["workspace"]])
+    else:
+        state["is_utility"] = True
+        i3(f"workspace {UTILITY_WORKSPACE}")
+
+
+@app.post("/utility/")
+async def move_to_util():
+    i3(f"move container to workspace {UTILITY_WORKSPACE}")
 # --------------------------------------------------------------------------------------------------
 # ==================================================================================================
 

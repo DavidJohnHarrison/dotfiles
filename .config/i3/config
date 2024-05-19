@@ -210,7 +210,7 @@ bindsym $mod+r mode "resize"
 
 # ==== WORKSPACE MANAGEMENT ========================================================================
 # ---- Workspace Names -----------------------------------------------------------------------------
-set $ws_util 0:Util
+set $ws_util 0:Utility
 
 set $ws_0  "\`"
 set $ws_1  "1"
@@ -270,7 +270,7 @@ bindsym $mod+F12 exec curl $helios/group/11
 
 
 # ---- Switch Workspace ----------------------------------------------------------------------------
-bindsym $mod+Escape workspace $ws_util
+bindsym $mod+Escape exec curl $helios/utility/
 
 bindsym $mod+grave exec curl $helios/workspace/0
 bindsym $mod+1     exec curl $helios/workspace/1
@@ -305,7 +305,7 @@ bindsym $mod+Shift+F12 exec curl -X POST $helios/group/11
 
 
 # ---- Move Focused Container To Workspace ---------------------------------------------------------
-bindsym $mod+Shift+Escape move container to workspace $ws_util
+bindsym $mod+Shift+Escape exec curl -X POST $helios/utility/
 
 bindsym $mod+Shift+grave exec curl -X POST $helios/workspace/0
 bindsym $mod+Shift+1     exec curl -X POST $helios/workspace/1
