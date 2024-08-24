@@ -105,6 +105,23 @@ export NVM_DIR="$HOME/.nvm"
 # ==== ALIASES =====================================================================================
 alias vim='nvim'
 alias ls='ls --color'
+
+# ---- Automatic tmux socket per working group -----------------------------------------------------
+# Use a separate tmux socket for the given working group, unless a specific socket is specified
+# with -S
+function __tmux_for_group() {
+    for arg in "$@"
+    do
+        if [[ "$arg" = "-S" ]]
+        then
+            tmux $@
+            return
+        fi
+    done
+    tmux -S ~/.tmux/`curl -s http:/127.0.0.1:7777/group/info/` $@
+}
+alias tmux=__tmux_for_group
+# --------------------------------------------------------------------------------------------------
 # ==================================================================================================
 
 
@@ -125,3 +142,6 @@ fpaths+=${ZDOTDIR:-~}/.zsh_functions
 
 [[ -f "${HOME}/.config/zsh/zshrc.local" ]] && source "${HOME}/.config/zsh/zshrc.local"
 # ==================================================================================================
+
+export PATH="$PATH:/home/david/.local/bin"
+

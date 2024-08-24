@@ -4,6 +4,7 @@ import subprocess
 from pathlib import Path
 
 from fastapi import FastAPI
+from fastapi.responses import PlainTextResponse
 from starlette.middleware.cors import CORSMiddleware
 import uvicorn
 
@@ -97,6 +98,15 @@ async def move_to_group(group_id: int):
                                                group_names[group_id],
                                                state["workspace"])
     i3(f"move container to workspace \"{workspace_name_global}\"")
+
+
+@app.get("/group/info/")
+async def get_group_info():
+    workspace_name = i3('-t get_workspaces | jq \'.[] | select(.focused == true).name\'').decode()
+    workspace_name_parts = workspace_name.split(":")
+    group_name = "general" if len(workspace_name_parts) < 3 else workspace_name_parts[1].lower()
+    print(group_name)
+    return PlainTextResponse(content=group_name)
 
 
 # Working Set
