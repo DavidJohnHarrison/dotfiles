@@ -48,3 +48,23 @@ vim.api.nvim_set_keymap("i",
 -- -------------------------------------------------------------------------------------------------
 -- =================================================================================================
 
+
+-- ==== DEBUG ======================================================================================
+-- params = {noremap=true, silent=true}
+-- vim.api.nvim_set_keymap("n", "<leader>db", "<cmd>DapToggleBreakpoint<CR>", params)
+-- vim.api.nvim_set_keymap("n", "<leader>dr", "<cmd>DapContinue<CR>", params)
+local dap = require("dap")
+local dapui = require("dapui")
+
+vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint)
+vim.keymap.set("n", "<leader>gb", dap.run_to_cursor)
+vim.keymap.set("n", "<F1>", dap.continue)
+vim.keymap.set("n", "<F2>", dap.step_into)
+vim.keymap.set("n", "<F3>", dap.step_over)
+vim.keymap.set("n", "<F4>", dap.step_out)
+vim.keymap.set("n", "<F5>", dap.step_back)
+vim.keymap.set("n", "<F8>", dap.restart)
+vim.keymap.set("n", "<F11>", dapui.open)
+vim.keymap.set("n", "<F12>", dapui.close)
+vim.keymap.set("n", "<leader>dc", dap.terminate)
+-- =================================================================================================

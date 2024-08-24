@@ -34,11 +34,14 @@ cmp.setup({
 
 local language_servers = {
     'pyright',
+    'ruff',
     'lua_ls',
 --    'clangd',
+    'omnisharp',
     'html',
     'cssls',
     'tsserver',
+    'texlab',
 }
 
 

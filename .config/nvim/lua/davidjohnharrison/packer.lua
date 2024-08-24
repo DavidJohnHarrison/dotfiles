@@ -39,6 +39,8 @@ return require('packer').startup(function(use)
             --- Uncomment these if you want to manage LSP servers from neovim
     use('williamboman/mason.nvim')
     use('williamboman/mason-lspconfig.nvim')
+    use('jose-elias-alvarez/null-ls.nvim')
+    --use('nvimtools/none-ls.nvim')
 
     -- LSP Support
     use('neovim/nvim-lspconfig')
@@ -61,6 +63,34 @@ return require('packer').startup(function(use)
     --    }
     --}
 
+    -- Debugging
+    use("mfussenegger/nvim-dap")
+    use {
+        "mfussenegger/nvim-dap-python",
+        ft = "python",
+        requires = {
+            "mfussenegger/nvim-dap",
+            "rcarriga/nvim-dap-ui",
+        },
+        config = function(_, opts)
+            local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
+            require("dap-python").setup(path)
+        end,
+    }
+    use {
+        "rcarriga/nvim-dap-ui",
+        requires = {
+            "mfussenegger/nvim-dap",
+            "nvim-neotest/nvim-nio",
+        },
+        config = function()
+        end,
+    }
+    use("theHamsta/nvim-dap-virtual-text")
+
     use('stevearc/dressing.nvim')
+
+
+
 end)
 
