@@ -40,7 +40,7 @@ local language_servers = {
     'omnisharp',
     'html',
     'cssls',
-    'tsserver',
+    'ts_ls',
     'texlab',
 }
 
