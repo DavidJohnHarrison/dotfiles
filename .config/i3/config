@@ -66,7 +66,7 @@ bindsym $mod+Shift+p exec ~/.config/i3/scripts/run_action_menu.sh
 
 
 # ---- Wallpaper------------------------------------------------------------------------------------
-exec_always feh --bg-scale /home/david/Pictures/wallpapers/Blue_Logo_Ubuntu.png
+exec_always ~/.config/i3/scripts/actions/wallpaper.sh default.png
 # --------------------------------------------------------------------------------------------------
 # ==================================================================================================
 
