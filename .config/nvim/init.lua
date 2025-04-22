@@ -23,6 +23,7 @@ vim.opt.scrolloff = 8
 vim.opt.wrap = false
 vim.opt.termguicolors = true
 vim.opt.colorcolumn = "100"
+vim.api.nvim_set_hl(0, "ColorColumn", { bg="#232637" })
 -- vim.opt.clipboard = "unnamedplus"
 
 

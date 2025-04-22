@@ -24,9 +24,6 @@ vim.g.maplocalleader = "\\"
 -- Setup lazy.nvim
 require("lazy").setup({
     spec = {
-        { "nvim-tree/nvim-web-devicons" },
-        { "folke/tokyonight.nvim",      config = function() vim.cmd.colorscheme "tokyonight" end },
-        --{ "shaunsingh/nord.nvim", config = function() vim.cmd.colorscheme "nord" end },
         { import = "config.plugins" },
     },
     -- automatically check for plugin updates
